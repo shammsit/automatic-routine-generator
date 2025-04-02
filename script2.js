@@ -1,42 +1,29 @@
-// Import Firebase SDK (Add this script in HTML <head> before script2.js)
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_ID",
-  appId: "YOUR_APP_ID"
-};
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("adminSignupForm");
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-// Handle form submission
-document.getElementById("adminSignupForm").addEventListener("submit", function (event) {
-    event.preventDefault();
+        const formData = {
+            instituteName: document.getElementById("instituteName").value,
+            instituteType: document.getElementById("instituteType").value,
+            hoi: document.getElementById("hoi").value,
+            website: document.getElementById("website").value,
+            contact: document.getElementById("contact").value,
+            email: document.getElementById("email").value,
+            address: document.getElementById("address").value,
+            location: document.getElementById("locationDisplay").innerText
+        };
 
-    let formData = {
-        instituteName: document.getElementById("instituteName").value,
-        instituteType: document.getElementById("instituteType").value,
-        hoi: document.getElementById("hoi").value,
-        website: document.getElementById("website").value,
-        contact: document.getElementById("contact").value,
-        email: document.getElementById("email").value,
-        address: document.getElementById("address").value
-    };
-
-    db.collection("institutes").add(formData)
-        .then(() => {
-            alert("Data saved successfully!");
+        fetch("YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL", {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
         })
-        .catch(error => {
-            alert("Error saving data: " + error);
-        });
-});
-
-// Fetch data and display in output.html
-db.collection("institutes").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-        document.getElementById("output").innerText += JSON.stringify(doc.data(), null, 2) + "\n";
+        .then(() => alert("Form submitted successfully!"))
+        .catch(error => console.error("Error submitting form:", error));
     });
 });
