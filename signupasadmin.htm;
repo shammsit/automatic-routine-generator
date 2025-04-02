@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up as Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up as Admin</h1>
+        <form id="adminSignupForm">
+            <label for="instituteName">Institute Name*</label>
+            <input type="text" id="instituteName" required>
+            
+            <label for="instituteType">Institute Type*</label>
+            <select id="instituteType" required>
+                <option value="">Select Type</option>
+                <option value="school">School</option>
+                <option value="college">College</option>
+                <option value="university">University</option>
+                <option value="online">Online Tutorials (Coaching)</option>
+                <option value="offline">Offline Tutorials (Coaching)</option>
+            </select>
+            
+            <div id="additionalFields"></div>
+            
+            <label for="hoi">Head of the Institute*</label>
+            <input type="text" id="hoi" required>
+            
+            <label for="website">Website of the Institute</label>
+            <input type="url" id="website">
+            
+            <label for="contact">Contact No. of the Institute*</label>
+            <input type="tel" id="contact" pattern="[0-9]{10}" required>
+            
+            <label for="email">Email ID of the Institute*</label>
+            <input type="email" id="email" pattern=".+@.+" required>
+            
+            <label for="address">Institute Full Address*</label>
+            <textarea id="address" required></textarea>
+            
+            <label for="proof">Institute Proof (PDF, max 5MB)*</label>
+            <input type="file" id="proof" accept="application/pdf" required>
+            
+            <label for="logo">Institute Logo (PNG/JPG, max 1MB)*</label>
+            <input type="file" id="logo" accept="image/png, image/jpeg" required>
+            
+            <label for="signature">HOI Draft Signature (PNG/JPG, max 1MB) (Optional)</label>
+            <input type="file" id="signature" accept="image/png, image/jpeg">
+            
+            <button type="button" id="captureLocation">Capture Live Location</button>
+            <p id="locationDisplay"></p>
+            
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
