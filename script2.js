@@ -113,3 +113,11 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("formData", JSON.stringify(formData));
     });
 });
+
+fetch("http://localhost/cgi-bin/institute.cgi")
+  .then(response => response.json())
+  .then(data => {
+    console.log("Received Data:", data);
+    document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+  })
+  .catch(error => console.error("Error fetching data:", error));
