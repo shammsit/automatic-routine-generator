@@ -1,87 +1,149 @@
+/* General Styling */
 body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #fff;
-  margin: 0;
-  padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: white;
+    margin: 0;
+    padding: 0;
 }
 
+/* Title */
 h1 {
-  color: black;
-  text-shadow: 2px 2px 2px yellow;
-  margin-top: 50px;
+    color: black;
+    text-shadow: 2px 2px 2px yellow;
+    margin-top: 30px;
 }
 
+/* Subtitle */
 .subtitle {
-  font-style: italic;
-  font-weight: bold;
-  background-color: yellow;
-  color: red;
-  display: inline-block;
-  padding: 5px 10px;
-  margin: 10px 0;
+    font-style: italic;
+    font-weight: bold;
+    background-color: yellow;
+    color: red;
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 10px 0;
 }
 
-.buttons {
-  margin: 20px 0;
+/* Form Container */
+.container {
+    background: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: left;
 }
 
+/* Form Group */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+    color: black;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Textarea */
+textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+/* File Input */
+.file-input input {
+    padding: 8px;
+}
+
+/* Buttons */
 .btn {
-  background-color: black;
-  color: yellow;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  border-radius: 5px;
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: black;
+    color: yellow;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 10px;
 }
 
-.forgot-btn {
-  background-color: black;
-  color: yellow;
-  font-size: 16px;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  text-transform: uppercase;
-  border-radius: 5px;
+.btn:hover {
+    background: yellow;
+    color: black;
+    border: 2px solid black;
 }
 
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+
+.btn-submit:hover {
+    background: black;
+    color: yellow;
+    border: 2px solid yellow;
+}
+
+/* Developer Info */
 .developer-info {
-  position: absoulute;
-  bottom:  20px;
-  left: 20px;
-  background-color: red;
-  border: none;
-  padding: 0;
-  box-shado: none;
-  text-align: left;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: red;
+    padding: 10px;
+    text-align: left;
+    border-radius: 5px;
+    color: white;
 }
 
 .developer-info h3 {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
+    color: white;
 }
 
 .developer-info p {
-  font-weight: bold;
-  color: white;
+    font-weight: bold;
 }
 
 .developer-info ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .developer-info li {
-  color: black;
+    color: black;
 }
 
 .developer-info a {
-  color: blue;
-  text-decoration: none;
-  font-weight: bold;
+    color: blue;
+    text-decoration: none;
+    font-weight: bold;
 }
