@@ -1,49 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <mysql/mysql.h>
+#include <string.h>
 
-void printJSON() {
-    MYSQL *conn;
-    MYSQL_RES *res;
-    MYSQL_ROW row;
+#define MAX_INPUT 1024
 
-    // Print HTTP header
-    printf("Content-Type: application/json\n\n");
+int main() {
+    char inputData[MAX_INPUT];
+    printf("Content-Type: application/json\n\n"); // Send JSON response
 
-    // Initialize MySQL connection
-    conn = mysql_init(NULL);
-    if (!conn) {
-        printf("{\"error\": \"MySQL initialization failed\"}");
-        return;
+    // Read input from the form
+    if (fgets(inputData, MAX_INPUT, stdin) == NULL) {
+        printf("{\"status\": \"error\", \"message\": \"Failed to read input\"}\n");
+        return 1;
     }
 
-    // Connect to database
-    if (!mysql_real_connect(conn, "localhost", "root", "password", "routine_db", 3306, NULL, 0)) {
-        printf("{\"error\": \"Database connection failed\"}");
-        return;
-    }
+    // Print received data for debugging
+    printf("{\"status\": \"success\", \"received_data\": \"%s\"}\n", inputData);
 
-    // Query the database
-    if (mysql_query(conn, "SELECT institute_name, contact FROM institutes")) {
-        printf("{\"error\": \"Query execution failed\"}");
-        return;
-    }
-
-    // Store result
-    res = mysql_store_result(conn);
-    printf("[");
-    int first = 1;
-    while ((row = mysql_fetch_row(res))) {
-        if (!first) printf(",");
-        printf("{\"institute_name\": \"%s\", \"contact\": \"%s\"}", row[0], row[1]);
-        first = 0;
-    }
-    printf("]");
-
-    // Cleanup
-    mysql_free_result(res);
-    mysql_close(conn);
+    return 0;
 }
+
 
 int main() {
     printJSON();
