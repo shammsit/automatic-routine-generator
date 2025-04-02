@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             location: document.getElementById("locationDisplay").innerText
         };
 
-        fetch("YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL", {
+        fetch("https://script.google.com/macros/s/AKfycbwQCfH0eCW1eaMvuzf2WmXs0buHDLCnejsWhlGov3u-uUXxRYoec2RiiNDPhJzKJg3a/exec", { // Replace with your Web App URL
             method: "POST",
             mode: "no-cors",
             headers: {
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(formData)
         })
-        .then(() => alert("Form submitted successfully!"))
+        .then(() => alert("Form submitted successfully! Data stored in Google Sheets."))
         .catch(error => console.error("Error submitting form:", error));
     });
 });
