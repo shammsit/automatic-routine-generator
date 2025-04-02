@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const locationButton = document.getElementById("captureLocation");
     const locationDisplay = document.getElementById("locationDisplay");
 
-    // Handle dynamic fields based on institute type
+    // Handle dynamic institute fields
     instituteType.addEventListener("change", function () {
-        additionalFields.innerHTML = ""; // Clear previous fields
+        additionalFields.innerHTML = ""; // Reset additional fields
         let type = instituteType.value;
 
         if (type === "school") {
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 function (position) {
                     locationDisplay.innerText = `Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`;
                 },
-                function (error) {
+                function () {
                     locationDisplay.innerText = "Error capturing location.";
                 }
             );
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Handle form submission
     form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent page reload
+        event.preventDefault(); // Prevent reload
 
         const formData = {
             instituteName: document.getElementById("instituteName").value,
@@ -91,10 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
             contact: document.getElementById("contact").value,
             email: document.getElementById("email").value,
             address: document.getElementById("address").value,
-            location: locationDisplay.innerText,
+            location: locationDisplay.innerText || "Not Captured",
         };
 
-        // Add additional fields if applicable
+        // Additional fields based on type
         if (instituteType.value === "school") {
             formData.schoolType = document.getElementById("schoolType").value;
             formData.schoolCategory = document.getElementById("schoolCategory").value;
@@ -109,15 +109,81 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Form Data:", formData);
         alert("Form submitted successfully! Check the console for details.");
 
-        // Store in Local Storage (optional)
+        // Save in Local Storage (optional)
         localStorage.setItem("formData", JSON.stringify(formData));
-    });
-});
 
-fetch("http://localhost/cgi-bin/institute.cgi")
-  .then(response => response.json())
-  .then(data => {
-    console.log("Received Data:", data);
-    document.getElementById("output").innerText = JSON.stringify(data, null, 2);
-  })
-  .catch(error => console.error("Error fetching data:", error));
+        // Send Data to Backend (AJAX)
+        fetch("http://localhost/cgi-bin/institute.cgi", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Server Response:", data);
+            alert("Data successfully saved in the database.");
+        })
+        .catch(error => {
+            console.error("Error submitting form:", error);
+            alert("Error saving data.");
+        });
+    });
+
+    // Fetch institute data for display (in output.html)
+    function fetchInstituteData() {
+        fetch("http://localhost/cgi-bin/institute.cgi")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Received Data:", data);
+                displayDataInTable(data);
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                document.getElementById("output").innerHTML = `
+                    <tr>
+                        <td colspan="2" style="color: red; text-align: center;">
+                            Error fetching data. Please try again later.
+                        </td>
+                    </tr>
+                `;
+            });
+    }
+
+    // Display data in table
+    function displayDataInTable(data) {
+        const outputTable = document.getElementById("output");
+
+        // Header
+        outputTable.innerHTML = `
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+        `;
+
+        // Data Rows
+        Object.keys(data).forEach(key => {
+            outputTable.innerHTML += `
+                <tr>
+                    <td><strong>${formatKey(key)}</strong></td>
+                    <td>${data[key] || "N/A"}</td>
+                </tr>
+            `;
+        });
+    }
+
+    // Format key names
+    function formatKey(key) {
+        return key.replace(/_/g, ' ').replace(/\b\w/g, char => char.toUpperCase());
+    }
+
+    // Fetch data on output.html
+    if (document.getElementById("output")) {
+        fetchInstituteData();
+    }
+});
