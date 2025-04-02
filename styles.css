@@ -50,12 +50,14 @@ h1 {
 }
 
 .developer-info {
+  position: absoulute;
+  bottom:  20px;
+  left: 20px;
+  background-color: red;
   border: none;
   padding: 0;
-  width: 50%;
-  margin: 30px auto;
+  box-shado: none;
   text-align: left;
-  background-color: none;
 }
 
 .developer-info h3 {
