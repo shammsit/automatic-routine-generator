@@ -50,12 +50,12 @@ h1 {
 }
 
 .developer-info {
-  border: 2px solid black;
-  padding: 15px;
+  border: none;
+  padding: 0;
   width: 50%;
   margin: 30px auto;
   text-align: left;
-  background-color: white;
+  background-color: none;
 }
 
 .developer-info h3 {
