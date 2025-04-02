@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </select>`;
         }
     });
+    
 
     captureLocationBtn.addEventListener("click", function () {
         if (navigator.geolocation) {
@@ -68,4 +69,21 @@ document.addEventListener("DOMContentLoaded", function () {
             locationDisplay.innerText = "Geolocation is not supported by this browser.";
         }
     });
+});
+document.getElementById("adminSignupForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent page reload
+
+    const formData = {
+        instituteName: document.getElementById("instituteName").value,
+        instituteType: document.getElementById("instituteType").value,
+        hoi: document.getElementById("hoi").value,
+        website: document.getElementById("website").value,
+        contact: document.getElementById("contact").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        location: document.getElementById("locationDisplay").innerText,
+    };
+
+    console.log("Form Data:", formData);
+    alert("Form submitted successfully! Check the console for details.");
 });
