@@ -1,42 +1,51 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <mysql/mysql.h>
 
-void fetchData() {
+void printJSON() {
     MYSQL *conn;
     MYSQL_RES *res;
     MYSQL_ROW row;
 
+    // Print HTTP header
+    printf("Content-Type: application/json\n\n");
+
     // Initialize MySQL connection
     conn = mysql_init(NULL);
     if (!conn) {
-        printf("MySQL Initialization Failed\n");
+        printf("{\"error\": \"MySQL initialization failed\"}");
         return;
     }
 
-    // Connect to MySQL
+    // Connect to database
     if (!mysql_real_connect(conn, "localhost", "root", "password", "routine_db", 3306, NULL, 0)) {
-        printf("Connection Failed: %s\n", mysql_error(conn));
+        printf("{\"error\": \"Database connection failed\"}");
         return;
     }
 
-    // Query to fetch data
-    if (mysql_query(conn, "SELECT * FROM institutes")) {
-        printf("Query Failed: %s\n", mysql_error(conn));
+    // Query the database
+    if (mysql_query(conn, "SELECT institute_name, contact FROM institutes")) {
+        printf("{\"error\": \"Query execution failed\"}");
         return;
     }
 
     // Store result
     res = mysql_store_result(conn);
+    printf("[");
+    int first = 1;
     while ((row = mysql_fetch_row(res))) {
-        printf("Institute Name: %s, Contact: %s\n", row[1], row[6]);
+        if (!first) printf(",");
+        printf("{\"institute_name\": \"%s\", \"contact\": \"%s\"}", row[0], row[1]);
+        first = 0;
     }
+    printf("]");
 
-    // Clean up
+    // Cleanup
     mysql_free_result(res);
     mysql_close(conn);
 }
 
 int main() {
-    fetchData();
+    printJSON();
     return 0;
 }
