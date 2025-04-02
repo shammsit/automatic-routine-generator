@@ -86,4 +86,7 @@ document.getElementById("adminSignupForm").addEventListener("submit", function (
 
     console.log("Form Data:", formData);
     alert("Form submitted successfully! Check the console for details.");
+
+    // Store data in Local Storage (optional)
+            localStorage.setItem("formData", JSON.stringify(formData));
 });
