@@ -42,10 +42,11 @@ h1 {
 .forgot-btn {
   background-color: black;
   color: yellow;
-  font-size: 14px;
-  padding: 8px 15px;
+  font-size: 16px;
+  padding: 10px 20px;
   border: none;
   cursor: pointer;
+  text-transform: uppercase;
   border-radius: 5px;
 }
 
