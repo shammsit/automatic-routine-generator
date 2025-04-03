@@ -22,36 +22,26 @@
     </div>
 
     <script>
-        document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent page refresh
+   document.getElementById("loginButton").addEventListener("click", function() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
 
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const scriptURL = "https://script.google.com/macros/s/AKfycbz2smwIffnWhwqslX_mqj3zPXD7vzo3mChV3mXx2JQItWbl3czWowrXLYEWbHqZ6w/exec";
-
-    if (!username || !password) {
-        document.getElementById("loginMessage").innerText = "Please enter both username and password!";
-        return;
-    }
-
-    fetch(`${scriptURL}?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`)
-        .then(response => {
-            console.log("Fetching response...", response);
-            return response.json();
-        })
-        .then(data => {
-            console.log("Received data:", data);
-            if (data.success) {
-                window.location.href = "output.html"; // Redirect on success
-            } else {
-                document.getElementById("loginMessage").innerText = "Incorrect details!";
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching data:", error);
-            document.getElementById("loginMessage").innerText = "Error connecting to the server!";
-        });
+    fetch("https://script.google.com/macros/s/AKfycbz2smwIffnWhwqslX_mqj3zPXD7vzo3mChV3mXx2JQItWbl3czWowrXLYEWbHqZ6w/exec?" + 
+        new URLSearchParams({ username: username, password: password }), {
+        method: "GET"
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Login Successful!");
+            window.location.href = "dashboard.html"; // Redirect after login
+        } else {
+            alert("Incorrect Credentials. Please try again.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
 });
+
 
     </script>
      <div class="buttons">
