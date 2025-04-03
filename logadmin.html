@@ -16,16 +16,18 @@
             <label for="password">Password:</label>
             <input type="password" id="password" required>
 
-            
+            <button type="submit" class="btn login-btn">Log IN</button>
         </form>
         <p id="loginMessage"></p>
     </div>
 
     <script>
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector(".login-btn").addEventListener("click", function() {
-        var username = prompt("Enter Username:"); // Replace with an input field in the actual form
-        var password = prompt("Enter Password:"); // Replace with an input field in the actual form
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
 
         fetch("https://script.google.com/macros/s/AKfycbz2smwIffnWhwqslX_mqj3zPXD7vzo3mChV3mXx2JQItWbl3czWowrXLYEWbHqZ6w/exec?" + 
             new URLSearchParams({ username: username, password: password }), {
@@ -35,9 +37,10 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             if (data.success) {
                 alert("Login Successful!");
-                window.location.href = "dashboard.html"; // Redirect to the dashboard after login
+                window.location.href = "dashboard.html"; // Redirect to the dashboard
             } else {
-                alert("Incorrect Credentials. Please try again.");
+                document.getElementById("loginMessage").innerText = "Incorrect Credentials. Please try again.";
+                document.getElementById("loginMessage").style.color = "red";
             }
         })
         .catch(error => console.error("Error:", error));
@@ -45,10 +48,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-     <div class="buttons">
-<button class="btn login-btn" >Log IN</button>
-<button class="btn signup-btn" onclick="window.location.href='signup.html'">Sign UP</button>
-<button class="btn forgot-btn" onclick="window.location.href='forgot-details.html'">Forgot Password</button>
+    <div class="buttons">
+        <button class="btn signup-btn" onclick="window.location.href='signup.html'">Sign UP</button>
+        <button class="btn forgot-btn" onclick="window.location.href='forgot-details.html'">Forgot Password</button>
     </div>
 </body>
 </html>
