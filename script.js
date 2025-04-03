@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
     goToLoginBtn.addEventListener("click", function () {
       console.log("Go to Log IN button clicked"); // Debugging log
       window.location.href = "login.html";
+    });
+  }
 
   const forgotBtn = document.querySelector(".forgot-btn");
   if (forgotBtn) {
