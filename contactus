@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="contact-container">
+    <h1>Problem Facing with Our Application?</h1>
+    <p class="subtitle">Contact our team:</p>
+
+    <div class="developer-info">
+      <p>❖ <strong>Team ‘TechWizards’</strong></p>
+      <p>❖ <strong>Institute: Meghnad Saha Institute Of Technology</strong></p>
+
+      <p>❖ <strong>Team Leader:</strong></p>
+      <ul>
+        <li>✔ Tanwisha Mondal</li>
+        <li>✔ Mail: <a href="mailto:tanwisha_mcse2024@msit.edu.in">tanwisha_mcse2024@msit.edu.in</a></li>
+      </ul>
+
+      <p>❖ <strong>Team Members:</strong></p>
+      <ul>
+        <li>✔ Shamanta Garai - <a href="mailto:shamanta_gaids2024@msit.edu.in">shamanta_gaids2024@msit.edu.in</a></li>
+        <li>✔ Rajdeep Chakraborty - <a href="mailto:rajdeep_ccse2024@msit.edu.in">rajdeep_ccse2024@msit.edu.in</a></li>
+        <li>✔ Srijan Murmu - <a href="mailto:srijan_mcse2024@msit.edu.in">srijan_mcse2024@msit.edu.in</a></li>
+      </ul>
+
+      <p>❖ <strong>Team Mentors:</strong></p>
+      <ul>
+        <li>✔ Dr. Sukhendu Jana - <a href="mailto:sukhendu.jana@msit.edu.in">sukhendu.jana@msit.edu.in</a></li>
+        <li>✔ Mr. Sanjib Garai - <a href="mailto:sanjib.garai@msit.edu.in">sanjib.garai@msit.edu.in</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="thank-you">
+    <h2>THANK YOU!</h2>
+  </div>
+
+  <div class="button-container">
+    <button class="btn" onclick="window.location.href='signup.html'">Go to Sign UP</button>
+    <button class="btn" onclick="window.location.href='login.html'">Go to Log IN</button>
+    <button class="btn" onclick="window.location.href='forgot-details.html'">Forgot User-Details</button>
+    <button class="btn" onclick="window.location.href='index.html'">Back To HOME</button>
+  </div>
+
+</body>
+</html>
