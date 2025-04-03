@@ -10,55 +10,42 @@
     <div class="login-container">
         <h2>Web-Admin Login</h2>
         <form id="loginForm">
-    <label for="username">Enter Username:</label>
-    <input type="text" id="username" required>
-    <label for="password">Enter Password:</label>
-    <input type="password" id="password" required>
-    <button type="submit" class="btn login-btn">Submit</button>
-</form>
+            <label for="username">Enter Username:</label>
+            <input type="text" id="username" required>
 
+            <label for="password">Enter Password:</label>
+            <input type="password" id="password" required>
+
+            <button type="submit" class="btn login-btn">Submit</button>
+        </form>
         <p id="loginMessage"></p>
     </div>
 
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent form from refreshing the page
 
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
 
-        fetch("https://script.google.com/macros/s/AKfycbz2smwIffnWhwqslX_mqj3zPXD7vzo3mChV3mXx2JQItWbl3czWowrXLYEWbHqZ6w/exec" + 
-            new URLSearchParams({ username: username, password: password }), {
-            method: "GET"
-        })
-        .then(response => response.text()) 
-.then(text => {
-    try {
-        let data = JSON.parse(text); // Parse JSON manually
+    fetch("https://script.google.com/macros/s/AKfycbz9BDnwPaKH3V8OoT6S-d4-PYKwTKuHq_KPj1g5goQVAzm1HKhcC9--cpyZbUv98_Fg/exec?" + 
+        new URLSearchParams({ username: username, password: password }), {
+        method: "GET"
+    })
+    .then(response => response.json())
+    .then(data => {
         if (data.success) {
             alert("Login Successful!");
-            window.location.href = "output.html";
+            window.location.href = "output.html"; // Redirect to dashboard
         } else {
             document.getElementById("loginMessage").innerText = "Incorrect Credentials. Please try again.";
             document.getElementById("loginMessage").style.color = "red";
         }
-    } catch (error) {
-        console.error("Error parsing JSON:", error, text);
-        document.getElementById("loginMessage").innerText = "Server error. Please try again.";
-    }
-});
-
-        .then(data => {
-            if (data.success) {
-                alert("Login Successful!");
-                window.location.href = "output.html"; // Redirect to the dashboard
-            } else {
-                document.getElementById("loginMessage").innerText = "Incorrect Credentials. Please try again.";
-                document.getElementById("loginMessage").style.color = "red";
-            }
-        })
-        .catch(error => console.error("Error:", error));
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        document.getElementById("loginMessage").innerText = "Server error. Please try again later.";
+        document.getElementById("loginMessage").style.color = "red";
     });
 });
 </script>
