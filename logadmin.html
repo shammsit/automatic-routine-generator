@@ -23,32 +23,43 @@
 
     <script>
 document.getElementById("loginForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent form from refreshing the page
+    event.preventDefault(); // Prevent default form submission
 
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+    var username = document.getElementById("username").value.trim();
+    var password = document.getElementById("password").value.trim();
+    var loginMessage = document.getElementById("loginMessage");
+
+    if (!username || !password) {
+        loginMessage.innerText = "Both fields are required!";
+        loginMessage.style.color = "red";
+        return;
+    }
+
+    loginMessage.innerText = "Logging in...";
+    loginMessage.style.color = "blue";
 
     fetch("https://script.google.com/macros/s/AKfycbxzGuh8EA28xAQS7nOYeGEbr8nZCtxzj7j31HyeDwZTHRIr9e9rST9y_GCBKaD5Jzi8/exec?" + 
         new URLSearchParams({ username: username, password: password }), {
-        method: "GET"
+        method: "GET",
+        cache: "no-cache"
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             alert("Login Successful!");
-            window.location.href = "output.html"; // Redirect to dashboard
+            window.location.href = "dashboard.html"; // Redirect to the dashboard
         } else {
-            document.getElementById("loginMessage").innerText = "Incorrect Credentials. Please try again.";
-            document.getElementById("loginMessage").style.color = "red";
+            loginMessage.innerText = "Incorrect Credentials. Please try again.";
+            loginMessage.style.color = "red";
         }
     })
     .catch(error => {
         console.error("Error:", error);
-        document.getElementById("loginMessage").innerText = "Server error. Please try again later.";
-        document.getElementById("loginMessage").style.color = "red";
+        loginMessage.innerText = "Error connecting to the server.";
+        loginMessage.style.color = "red";
     });
 });
-</script>
+    </script>
 
     <div class="buttons">
         <button class="btn signup-btn" onclick="window.location.href='signup.html'">Sign UP</button>
