@@ -22,28 +22,29 @@
     </div>
 
     <script>
-   document.getElementById("loginButton").addEventListener("click", function() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector(".login-btn").addEventListener("click", function() {
+        var username = prompt("Enter Username:"); // Replace with an input field in the actual form
+        var password = prompt("Enter Password:"); // Replace with an input field in the actual form
 
-    fetch("https://script.google.com/macros/s/AKfycbz2smwIffnWhwqslX_mqj3zPXD7vzo3mChV3mXx2JQItWbl3czWowrXLYEWbHqZ6w/exec?" + 
-        new URLSearchParams({ username: username, password: password }), {
-        method: "GET"
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert("Login Successful!");
-            window.location.href = "dashboard.html"; // Redirect after login
-        } else {
-            alert("Incorrect Credentials. Please try again.");
-        }
-    })
-    .catch(error => console.error("Error:", error));
+        fetch("https://script.google.com/macros/s/AKfycbz2smwIffnWhwqslX_mqj3zPXD7vzo3mChV3mXx2JQItWbl3czWowrXLYEWbHqZ6w/exec?" + 
+            new URLSearchParams({ username: username, password: password }), {
+            method: "GET"
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Login Successful!");
+                window.location.href = "dashboard.html"; // Redirect to the dashboard after login
+            } else {
+                alert("Incorrect Credentials. Please try again.");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
 });
+</script>
 
-
-    </script>
      <div class="buttons">
 <button class="btn login-btn" >Log IN</button>
 <button class="btn signup-btn" onclick="window.location.href='signup.html'">Sign UP</button>
