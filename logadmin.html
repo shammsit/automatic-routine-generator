@@ -33,7 +33,23 @@ document.addEventListener("DOMContentLoaded", function() {
             new URLSearchParams({ username: username, password: password }), {
             method: "GET"
         })
-        .then(response => response.json())
+        .then(response => response.text()) 
+.then(text => {
+    try {
+        let data = JSON.parse(text); // Parse JSON manually
+        if (data.success) {
+            alert("Login Successful!");
+            window.location.href = "output.html";
+        } else {
+            document.getElementById("loginMessage").innerText = "Incorrect Credentials. Please try again.";
+            document.getElementById("loginMessage").style.color = "red";
+        }
+    } catch (error) {
+        console.error("Error parsing JSON:", error, text);
+        document.getElementById("loginMessage").innerText = "Server error. Please try again.";
+    }
+});
+
         .then(data => {
             if (data.success) {
                 alert("Login Successful!");
