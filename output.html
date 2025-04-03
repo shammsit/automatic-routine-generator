@@ -37,6 +37,24 @@
             color: red;
             font-weight: bold;
         }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: black;
+            color: yellow;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background: yellow;
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -92,7 +110,8 @@
                 document.querySelector(".loading").innerText = "Error loading data!";
             });
     </script>
+
+    <button class="btn" onclick="window.location.href='index.html'">Go to HOME</button>
+
 </body>
-<button class="btn" onclick="window.location.href='index.html'">Go to HOME</button>
-</div>
 </html>
