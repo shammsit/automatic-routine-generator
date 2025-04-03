@@ -47,7 +47,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     .then(data => {
         if (data.success) {
             alert("Login Successful!");
-            window.location.href = "dashboard.html"; // Redirect to the dashboard
+            window.location.href = "output.html"; // Redirect to the dashboard
         } else {
             loginMessage.innerText = "Incorrect Credentials. Please try again.";
             loginMessage.style.color = "red";
