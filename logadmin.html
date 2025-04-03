@@ -27,7 +27,7 @@
 
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
-            const scriptURL = "https://script.google.com/macros/s/AKfycbw9GUeKlwG8jWwoIv7EpvyVGoSwiWHoCRR1KRVQfx-pxbzia3ioRUE1rWL-W9sTRzRC/exec";
+            const scriptURL = "https://script.google.com/macros/s/AKfycbw1lKkCMjgQs8nMlOY6_8KMtEu6us9S2uxS8TE3BKGvRtQSIDLvyTNu33Q_0Bnyshqh/exec";
 
             fetch(`${scriptURL}?username=${username}&password=${password}`)
                 .then(response => response.json())
