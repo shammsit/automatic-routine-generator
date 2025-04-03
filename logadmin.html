@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(data => {
             if (data.success) {
                 alert("Login Successful!");
-                window.location.href = "dashboard.html"; // Redirect to the dashboard
+                window.location.href = "output.html"; // Redirect to the dashboard
             } else {
                 document.getElementById("loginMessage").innerText = "Incorrect Credentials. Please try again.";
                 document.getElementById("loginMessage").style.color = "red";
