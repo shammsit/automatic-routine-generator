@@ -6,11 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Routine Generator</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Logo Styling */
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #222, #555); /* Light-dark mix */
+      padding: 20px;
+    }
+
+    .logo {
+      width: 120px; /* Resize the logo */
+      height: auto;
+    }
+
+    /* Centering Main Content */
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container">
+  <!-- Logo Section with Background -->
+  <div class="logo-container">
     <img src="tech.png" alt="Routine Generator Logo" class="logo">
+  </div>
+
+  <div class="container">
     <h1>WELCOME</h1>
     <h2>to Automatic Optimized Class Routine Generator</h2>
     <p class="subtitle">Create/Manage/Preview Your Routine</p>
@@ -25,7 +50,7 @@
     </div>
 
     <button class="btn" onclick="window.location.href='forgot-details.html'">Forgot User-Details</button>
-  </div> <!-- Closing the first container properly -->
+  </div>
 
   <!-- Contact Section -->
   <div class="container">
@@ -35,7 +60,7 @@
     <div class="buttons">
       <button class="btn" onclick="window.location.href='contact.html'">Contact US</button>
     </div>
-  </div> <!-- Closing the second container properly -->
+  </div>
 
   <div>
     <p style="color:red;">Sorry!!! This application is now in testing phase, not ready for users.</p>
