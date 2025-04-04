@@ -113,14 +113,13 @@ textarea {
 
 /* Developer Info */
 .developer-info {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
     background-color: red;
-    padding: 10px;
-    text-align: left;
-    border-radius: 5px;
     color: white;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 90%;
+    margin: 20px auto; /* Centering */
+    text-align: center; 
 }
 
 .developer-info h3 {
