@@ -17,6 +17,12 @@
         th {
             background-color: #f4f4f4;
         }
+        .print-btn {
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
     <script>
         function generateTimetables() {
@@ -27,7 +33,10 @@
             let periods = parseInt(prompt(`Enter the number of periods for ${className}:`));
             let recessAfter = parseInt(prompt(`After which period should recess be in ${className}? (Enter a number)`, "0"));
             
-            let tableHTML = `<h2>${className} Timetable</h2><table><tr><th>Days</th>`;
+            let tableId = `table_${c}`;
+            let tableHTML = `<h2>${className} Timetable</h2>`;
+            tableHTML += `<button class='print-btn' onclick='printTable("${tableId}")'>Print ${className} Timetable</button>`;
+            tableHTML += `<table id='${tableId}'><tr><th>Days</th>`;
             
             for (let i = 1; i <= periods; i++) {
                 if (i === recessAfter + 1) {
@@ -53,6 +62,16 @@
             tableHTML += "</table>";
             container.innerHTML += tableHTML;
         }
+    }
+    
+    function printTable(tableId) {
+        let tableContent = document.getElementById(tableId).outerHTML;
+        let newWindow = window.open("", "", "width=800,height=600");
+        newWindow.document.write("<html><head><title>Print Timetable</title></head><body>");
+        newWindow.document.write(tableContent);
+        newWindow.document.write("</body></html>");
+        newWindow.document.close();
+        newWindow.print();
     }
 </script>
 
