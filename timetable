@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Timetable</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+    <script>
+        function generateTimetable() {
+            let periods = prompt("Enter the number of periods:");
+            let table = document.getElementById("timetable");
+            let headerRow = "<tr><th>Days</th>";for (let i = 1; i <= periods; i++) {
+            headerRow += `<th>Period ${i}</th>`;
+        }
+        headerRow += "</tr>";
+        
+        let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        let bodyContent = "";
+        
+        for (let day of days) {
+            bodyContent += `<tr><td>${day}</td>`;
+            for (let i = 1; i <= periods; i++) {
+                bodyContent += "<td></td>";
+            }
+            bodyContent += "</tr>";
+        }
+        
+        table.innerHTML = headerRow + bodyContent;
+    }
+</script>
+
+</head>
+<body onload="generateTimetable()">
+    <h2>Class Timetable</h2>
+    <table id="timetable"></table>
+</body>
+</html>
