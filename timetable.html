@@ -26,9 +26,15 @@
     </style>
     <script>
         function generateTimetables() {
-            let numClasses = parseInt(prompt("Enter the number of different classes available in your institute:"));
-            let container = document.getElementById("timetables");
-            container.innerHTML = "";for (let c = 1; c <= numClasses; c++) {
+            let savedData = localStorage.getItem("timetableData");
+            if (savedData) {
+                document.getElementById("timetables").innerHTML = savedData;
+                return;
+            }let numClasses = parseInt(prompt("Enter the number of different classes available in your institute:"));
+        let container = document.getElementById("timetables");
+        container.innerHTML = "";
+        
+        for (let c = 1; c <= numClasses; c++) {
             let className = prompt(`Enter the name of Class ${c} (e.g., Class 6, Class 10, etc.):`);
             let periods = parseInt(prompt(`Enter the number of periods for ${className}:`));
             let recessAfter = parseInt(prompt(`After which period should recess be in ${className}? (Enter a number)`, "0"));
@@ -62,6 +68,8 @@
             tableHTML += "</table>";
             container.innerHTML += tableHTML;
         }
+        
+        localStorage.setItem("timetableData", container.innerHTML);
     }
     
     function printTable(tableId) {
