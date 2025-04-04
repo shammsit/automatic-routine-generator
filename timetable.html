@@ -25,14 +25,25 @@
         }
     </style>
     <script>
-        function loadTimetable() {
-            let savedData = localStorage.getItem("timetableData");
-            if (savedData) {
-                document.getElementById("timetables").innerHTML = savedData;
-                return true;
-            }
-            return false;
-        }function generateTimetables() {
+        let currentUser = null;function loginUser() {
+        currentUser = prompt("Enter your username:");
+        if (currentUser) {
+            loadTimetable();
+        }
+    }
+
+    function loadTimetable() {
+        if (!currentUser) return;
+        let savedData = localStorage.getItem(`timetable_${currentUser}`);
+        if (savedData) {
+            document.getElementById("timetables").innerHTML = savedData;
+            return true;
+        }
+        return false;
+    }
+    
+    function generateTimetables() {
+        if (!currentUser) return;
         if (loadTimetable()) {
             return;
         }
@@ -76,7 +87,7 @@
             container.innerHTML += tableHTML;
         }
         
-        localStorage.setItem("timetableData", container.innerHTML);
+        localStorage.setItem(`timetable_${currentUser}`, container.innerHTML);
     }
     
     function printTable(tableId) {
@@ -90,16 +101,16 @@
     }
     
     function resetTimetable() {
-        if (confirm("Are you sure you want to reset the timetable? This will delete all saved data.")) {
-            localStorage.removeItem("timetableData");
+        if (currentUser && confirm("Are you sure you want to reset your timetable? This will delete all saved data for your account.")) {
+            localStorage.removeItem(`timetable_${currentUser}`);
             location.reload();
         }
     }
 </script>
 
 </head>
-<body onload="generateTimetables()">
-    <div id="timetables"></div>
+<body onload="loginUser()">
     <button class='btn' onclick="resetTimetable()">Reset Timetable</button>
+    <div id="timetables"></div>
 </body>
 </html>
