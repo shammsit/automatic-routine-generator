@@ -118,8 +118,15 @@ textarea {
     padding: 15px;
     border-radius: 10px;
     max-width: 90%;
-    margin: 20px auto; /* Centering */
-    text-align: center; 
+    margin: 20px auto; /* Ensures spacing and centers the section */
+    text-align: center;
+}
+
+.container1 {
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 50px; /* Adds space below the content */
 }
 
 .developer-info h3 {
