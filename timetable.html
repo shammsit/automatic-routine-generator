@@ -8,6 +8,7 @@
             width: 100%;
             border-collapse: collapse;
             text-align: center;
+            margin-bottom: 30px;
         }
         th, td {
             border: 1px solid black;
@@ -18,39 +19,44 @@
         }
     </style>
     <script>
-        function generateTimetable() {
-            let periods = parseInt(prompt("Enter the number of periods:"));
-            let recessAfter = parseInt(prompt("After which period should recess be? (Enter a number)", "0"));
-            let table = document.getElementById("timetable");
-            let headerRow = "<tr><th>Days</th>";for (let i = 1; i <= periods; i++) {
-            if (i === recessAfter + 1) {
-                headerRow += "<th>Tiffin</th>";
-            }
-            headerRow += `<th>Period ${i}</th>`;
-        }
-        headerRow += "</tr>";
-        
-        let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        let bodyContent = "";
-        
-        for (let day of days) {
-            bodyContent += `<tr><td>${day}</td>`;
+        function generateTimetables() {
+            let numClasses = parseInt(prompt("Enter the number of classes:"));
+            let container = document.getElementById("timetables");
+            container.innerHTML = "";for (let c = 1; c <= numClasses; c++) {
+            let periods = parseInt(prompt(`Enter the number of periods for Class ${c}:`));
+            let recessAfter = parseInt(prompt(`After which period should recess be in Class ${c}? (Enter a number)`, "0"));
+            
+            let tableHTML = `<h2>Class ${c} Timetable</h2><table><tr><th>Days</th>`;
+            
             for (let i = 1; i <= periods; i++) {
                 if (i === recessAfter + 1) {
-                    bodyContent += "<td>Tiffin</td>";
+                    tableHTML += "<th>Tiffin</th>";
                 }
-                bodyContent += "<td></td>";
+                tableHTML += `<th>Period ${i}</th>`;
             }
-            bodyContent += "</tr>";
+            tableHTML += "</tr>";
+            
+            let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            
+            for (let day of days) {
+                tableHTML += `<tr><td>${day}</td>`;
+                for (let i = 1; i <= periods; i++) {
+                    if (i === recessAfter + 1) {
+                        tableHTML += "<td>Tiffin</td>";
+                    }
+                    tableHTML += "<td></td>";
+                }
+                tableHTML += "</tr>";
+            }
+            
+            tableHTML += "</table>";
+            container.innerHTML += tableHTML;
         }
-        
-        table.innerHTML = headerRow + bodyContent;
     }
 </script>
 
 </head>
-<body onload="generateTimetable()">
-    <h2>Class Timetable</h2>
-    <table id="timetable"></table>
+<body onload="generateTimetables()">
+    <div id="timetables"></div>
 </body>
 </html>
