@@ -17,20 +17,27 @@
         th {
             background-color: #f4f4f4;
         }
-        .print-btn {
-            margin-bottom: 20px;
+        .btn {
+            margin: 10px;
             padding: 10px 15px;
             font-size: 16px;
             cursor: pointer;
         }
     </style>
     <script>
-        function generateTimetables() {
+        function loadTimetable() {
             let savedData = localStorage.getItem("timetableData");
             if (savedData) {
                 document.getElementById("timetables").innerHTML = savedData;
-                return;
-            }let numClasses = parseInt(prompt("Enter the number of different classes available in your institute:"));
+                return true;
+            }
+            return false;
+        }function generateTimetables() {
+        if (loadTimetable()) {
+            return;
+        }
+        
+        let numClasses = parseInt(prompt("Enter the number of different classes available in your institute:"));
         let container = document.getElementById("timetables");
         container.innerHTML = "";
         
@@ -41,7 +48,7 @@
             
             let tableId = `table_${c}`;
             let tableHTML = `<h2>${className} Timetable</h2>`;
-            tableHTML += `<button class='print-btn' onclick='printTable("${tableId}")'>Print ${className} Timetable</button>`;
+            tableHTML += `<button class='btn' onclick='printTable("${tableId}")'>Print ${className} Timetable</button>`;
             tableHTML += `<table id='${tableId}'><tr><th>Days</th>`;
             
             for (let i = 1; i <= periods; i++) {
@@ -81,10 +88,18 @@
         newWindow.document.close();
         newWindow.print();
     }
+    
+    function resetTimetable() {
+        if (confirm("Are you sure you want to reset the timetable? This will delete all saved data.")) {
+            localStorage.removeItem("timetableData");
+            location.reload();
+        }
+    }
 </script>
 
 </head>
 <body onload="generateTimetables()">
     <div id="timetables"></div>
+    <button class='btn' onclick="resetTimetable()">Reset Timetable</button>
 </body>
 </html>
