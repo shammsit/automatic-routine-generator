@@ -28,12 +28,14 @@
         let currentUser = null;function loginUser() {
         currentUser = prompt("Enter your username:");
         if (currentUser) {
-            loadTimetable();
+            if (!loadTimetable()) {
+                generateTimetables();
+            }
         }
     }
 
     function loadTimetable() {
-        if (!currentUser) return;
+        if (!currentUser) return false;
         let savedData = localStorage.getItem(`timetable_${currentUser}`);
         if (savedData) {
             document.getElementById("timetables").innerHTML = savedData;
@@ -44,9 +46,6 @@
     
     function generateTimetables() {
         if (!currentUser) return;
-        if (loadTimetable()) {
-            return;
-        }
         
         let numClasses = parseInt(prompt("Enter the number of different classes available in your institute:"));
         let container = document.getElementById("timetables");
