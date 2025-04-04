@@ -20,13 +20,14 @@
     </style>
     <script>
         function generateTimetables() {
-            let numClasses = parseInt(prompt("Enter the number of classes:"));
+            let numClasses = parseInt(prompt("Enter the number of different classes available in your institute:"));
             let container = document.getElementById("timetables");
             container.innerHTML = "";for (let c = 1; c <= numClasses; c++) {
-            let periods = parseInt(prompt(`Enter the number of periods for Class ${c}:`));
-            let recessAfter = parseInt(prompt(`After which period should recess be in Class ${c}? (Enter a number)`, "0"));
+            let className = prompt(`Enter the name of Class ${c} (e.g., Class 6, Class 10, etc.):`);
+            let periods = parseInt(prompt(`Enter the number of periods for ${className}:`));
+            let recessAfter = parseInt(prompt(`After which period should recess be in ${className}? (Enter a number)`, "0"));
             
-            let tableHTML = `<h2>Class ${c} Timetable</h2><table><tr><th>Days</th>`;
+            let tableHTML = `<h2>${className} Timetable</h2><table><tr><th>Days</th>`;
             
             for (let i = 1; i <= periods; i++) {
                 if (i === recessAfter + 1) {
