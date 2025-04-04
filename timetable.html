@@ -19,9 +19,13 @@
     </style>
     <script>
         function generateTimetable() {
-            let periods = prompt("Enter the number of periods:");
+            let periods = parseInt(prompt("Enter the number of periods:"));
+            let recessAfter = parseInt(prompt("After which period should recess be? (Enter a number)", "0"));
             let table = document.getElementById("timetable");
             let headerRow = "<tr><th>Days</th>";for (let i = 1; i <= periods; i++) {
+            if (i === recessAfter + 1) {
+                headerRow += "<th>Tiffin</th>";
+            }
             headerRow += `<th>Period ${i}</th>`;
         }
         headerRow += "</tr>";
@@ -32,6 +36,9 @@
         for (let day of days) {
             bodyContent += `<tr><td>${day}</td>`;
             for (let i = 1; i <= periods; i++) {
+                if (i === recessAfter + 1) {
+                    bodyContent += "<td>Tiffin</td>";
+                }
                 bodyContent += "<td></td>";
             }
             bodyContent += "</tr>";
