@@ -37,7 +37,7 @@
             color: red;
             font-weight: bold;
         }
-        .btn {
+        .btn, .form-btn {
             display: block;
             width: 100%;
             padding: 12px;
@@ -51,16 +51,35 @@
             text-transform: uppercase;
             margin-top: 10px;
         }
-        .btn:hover {
+        .btn:hover, .form-btn:hover {
             background: yellow;
             color: black;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            margin-top: 10px;
+            border: 1px solid black;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
     <h1>Institute Data</h1>
-    <p class="loading">Loading data...</p>
+
+    <div class="form-container">
+        <label for="userInput">Enter your Roll Number or ID:</label>
+        <input type="text" id="userInput" placeholder="e.g. 123456">
+        <button class="form-btn" onclick="loadUserData()">Load My Data</button>
+    </div>
+
+    <p class="loading">Awaiting input...</p>
 
     <table id="dataTable" style="display:none;">
         <thead>
@@ -69,50 +88,68 @@
         <tbody id="tableBody"></tbody>
     </table>
 
+    <div>
+        <button class="btn" onclick="window.location.href='timetable.html'">Routine</button>
+        <button class="btn" onclick="window.location.href='index.html'">Go to HOME</button>
+    </div>
+
     <script>
         const scriptURL = "https://script.google.com/macros/s/AKfycbxXmlzXneGMufE4pSMUY6tr2avxQMORV46ohFJzFec7b4YxIJB0_UGi9EepfPw1NOM/exec";
 
-        fetch(scriptURL)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Fetched Data:", data);
+        function loadUserData() {
+            const userInput = document.getElementById("userInput").value.trim();
+            const loadingText = document.querySelector(".loading");
+            const tableHead = document.getElementById("tableHead");
+            const tableBody = document.getElementById("tableBody");
+            const dataTable = document.getElementById("dataTable");
 
-                const tableHead = document.getElementById("tableHead");
-                const tableBody = document.getElementById("tableBody");
-                const loadingText = document.querySelector(".loading");
-                const dataTable = document.getElementById("dataTable");
+            if (!userInput) {
+                alert("Please enter your ID or Roll Number");
+                return;
+            }
 
-                // Hide loading text and show table
-                loadingText.style.display = "none";
-                dataTable.style.display = "table";
+            loadingText.innerText = "Loading data...";
+            tableHead.innerHTML = "";
+            tableBody.innerHTML = "";
+            dataTable.style.display = "none";
 
-                // Create table headers
-                const headers = Object.keys(data[0]);
-                headers.forEach(header => {
-                    let th = document.createElement("th");
-                    th.innerText = header;
-                    tableHead.appendChild(th);
-                });
+            fetch(scriptURL)
+                .then(response => response.json())
+                .then(data => {
+                    const userData = data.filter(row =>
+                        Object.values(row).some(val => val.toString().toLowerCase().includes(userInput.toLowerCase()))
+                    );
 
-                // Populate table with data
-                data.forEach(row => {
-                    let tr = document.createElement("tr");
+                    if (userData.length === 0) {
+                        loadingText.innerText = "No data found for input!";
+                        return;
+                    }
+
+                    loadingText.style.display = "none";
+                    dataTable.style.display = "table";
+
+                    const headers = Object.keys(userData[0]);
                     headers.forEach(header => {
-                        let td = document.createElement("td");
-                        td.innerText = row[header];
-                        tr.appendChild(td);
+                        let th = document.createElement("th");
+                        th.innerText = header;
+                        tableHead.appendChild(th);
                     });
-                    tableBody.appendChild(tr);
+
+                    userData.forEach(row => {
+                        let tr = document.createElement("tr");
+                        headers.forEach(header => {
+                            let td = document.createElement("td");
+                            td.innerText = row[header];
+                            tr.appendChild(td);
+                        });
+                        tableBody.appendChild(tr);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                    loadingText.innerText = "Error loading data!";
                 });
-            })
-            .catch(error => {
-                console.error("Error fetching data:", error);
-                document.querySelector(".loading").innerText = "Error loading data!";
-            });
+        }
     </script>
-<div>
-<button class="btn" onclick="window.location.href='timetable.html'">Routine</button>
-    <button class="btn" onclick="window.location.href='index.html'">Go to HOME</button>
-</div>
 </body>
 </html>
